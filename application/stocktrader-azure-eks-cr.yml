@@ -111,16 +111,21 @@ spec:
       tO8HItgTp37XT8bJBAiAnt5mxw+NLSqtxk2QdQ==
       -----END CERTIFICATE-----
   mq:
-    kind: amazon-mq-apache-mq
-    host: b-a797a983-9218-45b7-89df-65efdb2d4270-1.mq.us-east-2.amazonaws.com:61617
-    queue: LoyaltyLevelChange
+    channel: DEV.APP.SVRCONN
+    host: mqtrader1-mqtrader1
+    id: app
+    kind: ibm-mq
+    password: ""
+    port: 1414
+    queue: NotificationQ
+    queueManager: stocktrader
   messaging:
     autoscale: false
     cpuThreshold: 75
-    enabled: true
+    enabled: false
     image:
-      repository: /
-      tag: 78868d536111b361223bd8ce8cb3443255127a20
+      repository: kyncjot.azurecr.io/messaging
+      tag: 1.0.0
     maxReplicas: 10
     notification:
       url: http://{{ .Release.Name }}-notification-service:9080/notification
@@ -128,25 +133,27 @@ spec:
   notificationSlack:
     autoscale: false
     cpuThreshold: 75
-    enabled: true
+    enabled: false
     image:
-      repository: >-
-        719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/notification-slack
-      tag: fec0109cd78058108c8a5a2e74046d4cec320174
+      repository: kyncjot.azurecr.io/notification-slack
+      tag: 1.0.0
     maxReplicas: 10
     replicas: 1
   openwhisk:
-    url: >-
-      https://q2aq0eqss0.execute-api.us-east-2.amazonaws.com/default/PostLoyaltyLevelToSlack
+    id: <your id>
+    password: <your password>
+    url: https://openwhisk.ng.bluemix.net/api/v1/namespaces/jalcorn%40us.ibm.com_dev/actions/PostLoyaltyLevelToSlack
   kafka:
     accountTopic: account
-    address: >-
-      b-1.stocktrader-msk-cluste.beyrsy.c7.kafka.us-east-2.amazonaws.com:9096,b-3.stocktrader-msk-cluste.beyrsy.c7.kafka.us-east-2.amazonaws.com:9096,b-2.stocktrader-msk-cluste.beyrsy.c7.kafka.us-east-2.amazonaws.com:9096
+    address: <your Kafka proxy service>:30000
+    apiKey: <your API key>
+    brokerTopic: broker
     historyTopic: history
     portfolioTopic: portfolio
+    user: token
   jwt:
     audience: stock-trader
-    issuer: 'http://stock-trader.ibm.com'
+    issuer: http://stock-trader.ibm.com
   ldap:
     baseDN: o=ibm.com
     host: bluepages.ibm.com
@@ -156,61 +163,41 @@ spec:
     autoscale: false
     cpuThreshold: 75
     image:
-      repository: 719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/portfolio
-      tag: e346cc0d6a0e
+      repository: kyncjot.azurecr.io/portfolio
+      tag: 1.0.0
     maxReplicas: 10
-    replicas: 2
-    url: 'http://{{ .Release.Name }}-portfolio-service:9080/portfolio'
+    replicas: 1
+    url: http://{{ .Release.Name }}-portfolio-service:9080/portfolio
   watson:
-    url: >-
-      https://api.us-south.tone-analyzer.watson.cloud.ibm.com/instances/195be178-5f78-467f-8355-99ee5772f4c2/v3/tone?version=2017-09-21&sentences=false
-  # brokerCQRS:
-  #   autoscale: false
-  #   cpuThreshold: 75
-  #   enabled: false
-  #   image:
-  #     repository: 719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/broker-cqrs
-  #     tag: 6c52fc2ff5ccf56fd9b3308a955b59f84e61f429
-  #   maxReplicas: 10
-  #   replicas: 1
-  #   url: 'http://{{ .Release.Name }}-broker-cqrs-service:9080/brokerCQRS'
+    id: apikey
+    passwordOrApiKey: <your API key>
+    url: https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21&sentences=false
   notificationTwitter:
     autoscale: false
     cpuThreshold: 75
     enabled: false
     image:
-      repository: >-
-        719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/notification-twitter
-      tag: d59e9c656d8e61792dd448c0de9b3dc2583075dc
+      repository: kyncjot.azurecr.io/notification-twitter
+      tag: 1.0.0
     maxReplicas: 10
     replicas: 1
-  # collector:
-  #   autoscale: false
-  #   cpuThreshold: 75
-  #   enabled: false
-  #   image:
-  #     repository: 719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/collector
-  #     tag: e6312561ab2a6f86c3738ac52df5a7b771d9a1b3
-  #   maxReplicas: 10
-  #   replicas: 1
-  #   url: 'http://{{ .Release.Name }}-collector-service:9080/collector'
   account:
     autoscale: false
     cpuThreshold: 75
     enabled: false
     image:
-      repository: /
-      tag: 8ef68f0dcb4b408dd6e6c01eb91fc5c53cab00a5
+      repository: kyncjot.azurecr.io/account
+      tag: 1.0.0
     maxReplicas: 10
     replicas: 1
-    url: 'http://{{ .Release.Name }}-account-service:9080/account'
+    url: http://{{ .Release.Name }}-account-service:9080/account
   cashAccount:
     autoscale: false
     cpuThreshold: 75
     enabled: true
     exchangeRateUrl: https://api.frankfurter.app/latest
     image:
-      repository: ghcr.io/ibmstocktrader/cash-account
+      repository: kyncjot.azurecr.io/cash-account
       tag: 1.0.0
     maxReplicas: 10
     replicas: 1
@@ -220,27 +207,26 @@ spec:
     cpuThreshold: 75
     enabled: true
     image:
-      repository: 719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/trader
-      tag: "824409fb37e2bcbf2bb50990062df76bcf5badbc"
+      repository: kyncjot.azurecr.io/trader
+      tag: 1.0.0
     maxReplicas: 10
     replicas: 1
   tradeHistory:
     autoscale: false
     cpuThreshold: 75
-    enabled: true
+    enabled: false
     image:
-      repository: >-
-        719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/trade-history
-      tag: latest
+      repository: kyncjot.azurecr.io/trade-history
+      tag: 1.0.0
     maxReplicas: 10
     replicas: 1
-    url: 'http://{{ .Release.Name }}-trade-history-service:9080/trade-history'
+    url: http://{{ .Release.Name }}-trade-history-service:9080/trade-history
   tradr:
     autoscale: false
     cpuThreshold: 75
     enabled: false
     image:
-      repository: quay.io/ibmstocktrader/tradr
+      repository: kyncjot.azurecr.io/tradr
       tag: 1.0.0
     maxReplicas: 10
     replicas: 1
@@ -249,61 +235,70 @@ spec:
     cpuThreshold: 75
     enabled: true
     image:
-      repository: 719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/looper
-      tag: e6bf894d2de55d13f49a3b7b1395840db7fe5acd
+      repository: kyncjot.azurecr.io/looper
+      tag: 1.0.0
     maxReplicas: 10
     replicas: 1
     url: http://{{ .Release.Name }}-looper-service:9080/looper
   vault:
     enabled: false
-    path: ceh/data/stocktrader/credentials
-    role: stocktrader
+    jwtPath: /var/run/secrets/kubernetes.io/serviceaccount
+    path: <path to Vault secrets>
+    role: <Vault auth role>
   cloudant:
-    collector: evidence
     database: account
-    url: >-
-      http://admin:ZdaRs4o8ORIQ@ip-10-2-9-5.us-east-2.compute.internal:5984
+    id: admin
+    password: ""
+    url: http://account-couchdb:5984
   mongo:
-    authDB: admin
-    database: stocktraderhistory
-    ip: >-
-      stocktrader-documentdb-cluster.cluster-cvxl7y6djmce.us-east-2.docdb.amazonaws.com:27017
+    authDB: <your Mongo auth database>
+    database: <your Mongo database>
+    ip: <your Mongo IP>
+    password: ""
     port: 27017
+    user: <your Mongo user>
   odm:
-    url: >-
-      https://odm-connect-cp4a.devops-prereqs-44-a01ee4194ed985a1e32b1d96fd4ae346-0000.us-east.containers.appdomain.cloud/DecisionService/rest/v1/ICP_Trader_Dev_1/determineLoyalty
+    id: odmAdmin
+    password: odmAdmin
+    url: https://stocktraderfunctions.azurewebsites.net/api/GetLoyaltyLevel?code=cHw2NIxDAp_Me0UrY9ri8MnOnbn6ZkGNATNhRhQgYJ8zAzFuALTnXQ==
   oidc:
-    clientId: trader
-    clientSecret: 8a8d5681-1580-4461-a45b-d19fce955b02
-    discoveryUrl: >-
-      https://keycloak-keycloak.devops-prereqs-44-a01ee4194ed985a1e32b1d96fd4ae346-0000.us-east.containers.appdomain.cloud/auth/realms/master/.well-known/openid-configuration
+    clientId: stock-trader
+    clientSecret: ""
+    discoveryUrl: https://20.75.190.79:8443/auth/realms/cjot/.well-known/openid-configuration
+    jwksUrl: https://20.75.190.79:8443/auth/realms/cjot/protocol/openid-connect/certs
   broker:
     autoscale: false
     cpuThreshold: 75
     image:
-      repository: 719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/broker
-      tag: fd806ba39193e795ff9410631ca56f932e3f0b9a
+      repository: kyncjot.azurecr.io/broker
+      tag: 1.0.0
     maxReplicas: 10
     replicas: 1
-    url: 'http://{{ .Release.Name }}-broker-service:9080/broker'
+    url: http://{{ .Release.Name }}-broker-service:9080/broker
   database:
-    db: stocktrader
-    host: >-
-      stocktrader-rds-aurora-instance-1.cvxl7y6djmce.us-east-2.rds.amazonaws.com
+    db: postgres
+    host: stock-trader-postgres.postgres.database.azure.com
+    id: cjot
     kind: postgres
+    password: ""
     port: 5432
     ssl: false
   redis:
     cacheInterval: 60
-    urlWithCredentials: >-
-      rediss://master.stocktrader-redis-replication-group.kcjtaw.use2.cache.amazonaws.com:6379/0
+    urlWithCredentials: rediss://:qoI7hBwx1xWydr6IOOtpTX2TYMde99NvrAzCaAxtPNw=@stock-trader-balaji.redis.cache.windows.net:6380
   stockQuote:
-    apiConnect: >-
-      https://gd5tqp34ng.execute-api.us-east-2.amazonaws.com/default/GetStockQuote
+    apiConnect: https://gd5tqp34ng.execute-api.us-east-2.amazonaws.com/default/GetStockQuote
     autoscale: false
     cpuThreshold: 75
+    encryption:
+      class: noneEncryptor
+      password: <encryption password>
+      saltBytes: <salt bytes generated>
+    iexApiKey: <your IEX API key>
+    iexTrading: https://cloud.iexapis.com/stable/stock
     image:
-      repository: 719273936648.dkr.ecr.us-east-2.amazonaws.com/ibmstocktrader/stock-quote
-      tag: 46cbf3c3846e3bbda6426fb201c1422adf6b4924
+      repository: kyncjot.azurecr.io/stock-quote
+      tag: 1.0.0
     maxReplicas: 10
     replicas: 1
+    url: http://{{ .Release.Name }}-stock-quote-service:9080/stock-quote
