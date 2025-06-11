@@ -260,7 +260,7 @@ spec:
   odm:
     id: odmAdmin
     password: odmAdmin
-    url: https://stocktraderfunctions.azurewebsites.net/api/GetLoyaltyLevel?code=cHw2NIxDAp_Me0UrY9ri8MnOnbn6ZkGNATNhRhQgYJ8zAzFuALTnXQ==
+    url: https://stocktraderfunctions.azurewebsites.net/api/GetLoyaltyLevel?code=<YOUR_FUNCTION_KEY>
   oidc:
     clientId: stock-trader
     clientSecret: ""
@@ -285,7 +285,7 @@ spec:
     ssl: false
   redis:
     cacheInterval: 60
-    urlWithCredentials: rediss://:qoI7hBwx1xWydr6IOOtpTX2TYMde99NvrAzCaAxtPNw=@stock-trader-balaji.redis.cache.windows.net:6380
+    urlWithCredentials: rediss://:<YOUR_REDIS_KEY>@stock-trader-balaji.redis.cache.windows.net:6380
   stockQuote:
     apiConnect: https://gd5tqp34ng.execute-api.us-east-2.amazonaws.com/default/GetStockQuote
     autoscale: false
