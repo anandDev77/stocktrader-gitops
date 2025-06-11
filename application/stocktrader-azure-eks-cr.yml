@@ -197,13 +197,24 @@ spec:
   account:
     autoscale: false
     cpuThreshold: 75
-    enabled: true
+    enabled: false
     image:
       repository: /
       tag: 8ef68f0dcb4b408dd6e6c01eb91fc5c53cab00a5
     maxReplicas: 10
     replicas: 1
     url: 'http://{{ .Release.Name }}-account-service:9080/account'
+  cashAccount:
+    autoscale: false
+    cpuThreshold: 75
+    enabled: true
+    exchangeRateUrl: https://api.frankfurter.app/latest
+    image:
+      repository: ghcr.io/ibmstocktrader/cash-account
+      tag: 1.0.0
+    maxReplicas: 10
+    replicas: 1
+    url: http://{{ .Release.Name }}-cash-account-service:8080/cash-account
   trader:
     autoscale: false
     cpuThreshold: 75
