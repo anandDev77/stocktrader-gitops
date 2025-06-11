@@ -16,7 +16,7 @@ spec:
     externalConfigMap: false
     configMapName: "{{ .Release.Name }}-config"
     externalSecret: true
-    secretName: stock-trader-credentials
+    secretName: cjot-credentials
     proxyServer: false
     proxyServerAddress: <your proxy URL>
     pullSecret: false
