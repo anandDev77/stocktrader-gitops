@@ -1,7 +1,7 @@
 apiVersion: operators.ibm.com/v1
 kind: StockTrader
 metadata:
-  name: gitops-stocktrader
+  name: cjot
 spec:
   global:
     auth: basic
