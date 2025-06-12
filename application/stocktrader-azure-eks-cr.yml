@@ -246,9 +246,9 @@ spec:
     path: <path to Vault secrets>
     role: <Vault auth role>
   cloudant:
+    database: account
     id: admin
     password: ""
-    database: account
     url: http://account-couchdb:5984
   mongo:
     authDB: <your Mongo auth database>
