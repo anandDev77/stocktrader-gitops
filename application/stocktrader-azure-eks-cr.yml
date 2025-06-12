@@ -208,7 +208,7 @@ spec:
     enabled: true
     image:
       repository: kyncjot.azurecr.io/trader
-      tag: 8f39db44a2ea923db6ba8ea46565658be401ae59
+      tag: d5e4e381eec50458f0c45e9707db8f3f16f13b65
     maxReplicas: 10
     replicas: 1
   tradeHistory:
