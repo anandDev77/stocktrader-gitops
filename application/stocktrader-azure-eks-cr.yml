@@ -246,15 +246,20 @@ spec:
     path: <path to Vault secrets>
     role: <Vault auth role>
   cloudant:
+    id: admin
+    password: ""
     database: account
     url: http://account-couchdb:5984
   mongo:
     authDB: <your Mongo auth database>
     database: <your Mongo database>
     ip: <your Mongo IP>
+    password: ""
     port: 27017
     user: <your Mongo user>
   odm:
+    id: odmAdmin
+    password: odmAdmin
     url: https://stocktraderfunctions.azurewebsites.net/api/GetLoyaltyLevel?code=<YOUR_FUNCTION_KEY>
   oidc:
     clientId: stock-trader
@@ -273,7 +278,9 @@ spec:
   database:
     db: postgres
     host: stock-trader-postgres.postgres.database.azure.com
+    id: cjot
     kind: postgres
+    password: ""
     port: 5432
     ssl: false
   redis:
