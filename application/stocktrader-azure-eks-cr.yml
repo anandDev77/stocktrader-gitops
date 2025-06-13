@@ -139,9 +139,7 @@ spec:
   mq:
     channel: DEV.APP.SVRCONN
     host: mqtrader1-mqtrader1
-    id: app
     kind: ibm-mq
-    password: ""
     port: 1414
     queue: NotificationQ
     queueManager: stocktrader
@@ -166,17 +164,12 @@ spec:
     maxReplicas: 10
     replicas: 1
   openwhisk:
-    id: <your id>
-    password: <your password>
     url: https://openwhisk.ng.bluemix.net/api/v1/namespaces/jalcorn%40us.ibm.com_dev/actions/PostLoyaltyLevelToSlack
   kafka:
     accountTopic: account
-    address: <your Kafka proxy service>:30000
-    apiKey: <your API key>
     brokerTopic: broker
     historyTopic: history
     portfolioTopic: portfolio
-    user: token
   jwt:
     audience: stock-trader
     issuer: http://stock-trader.ibm.com
@@ -195,8 +188,6 @@ spec:
     replicas: 1
     url: http://{{ .Release.Name }}-portfolio-service:9080/portfolio
   watson:
-    id: apikey
-    passwordOrApiKey: <your API key>
     url: https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21&sentences=false
   notificationTwitter:
     autoscale: false
@@ -269,27 +260,18 @@ spec:
   vault:
     enabled: false
     jwtPath: /var/run/secrets/kubernetes.io/serviceaccount
-    path: <path to Vault secrets>
-    role: <Vault auth role>
   cloudant:
     database: account
-    id: admin
-    password: ""
     url: http://account-couchdb:5984
   mongo:
     authDB: <your Mongo auth database>
     database: <your Mongo database>
     ip: <your Mongo IP>
-    password: ""
     port: 27017
-    user: <your Mongo user>
   odm:
-    id: odmAdmin
-    password: odmAdmin
-    url: https://stocktraderfunctions.azurewebsites.net/api/GetLoyaltyLevel?code=<YOUR_FUNCTION_KEY>
+    url: https://stocktraderfunctions.azurewebsites.net/api/GetLoyaltyLevel
   oidc:
     clientId: stock-trader
-    clientSecret: ""
     discoveryUrl: https://20.75.190.79:8443/auth/realms/cjot/.well-known/openid-configuration
     jwksUrl: https://20.75.190.79:8443/auth/realms/cjot/protocol/openid-connect/certs
   broker:
@@ -303,24 +285,17 @@ spec:
     url: http://{{ .Release.Name }}-broker-service:9080/broker
   database:
     db: postgres
-    host: stock-trader-postgres.postgres.database.azure.com
-    id: cjot
     kind: postgres
-    password: ""
     port: 5432
     ssl: false
   redis:
     cacheInterval: 60
-    urlWithCredentials: rediss://:<YOUR_REDIS_KEY>@stock-trader-balaji.redis.cache.windows.net:6380
   stockQuote:
     apiConnect: https://gd5tqp34ng.execute-api.us-east-2.amazonaws.com/default/GetStockQuote
     autoscale: false
     cpuThreshold: 75
     encryption:
       class: noneEncryptor
-      password: <encryption password>
-      saltBytes: <salt bytes generated>
-    iexApiKey: <your IEX API key>
     iexTrading: https://cloud.iexapis.com/stable/stock
     image:
       repository: kyncjot.azurecr.io/stock-quote
