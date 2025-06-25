@@ -203,8 +203,8 @@ spec:
     cpuThreshold: 75
     enabled: false
     image:
-      repository: kyncjot.azurecr.io/account
-      tag: 1.0.0
+      repository: /account
+      tag: 2eb9997d6b1e0f6c8a4c74bc235e76a770266345
     maxReplicas: 10
     replicas: 1
     url: http://{{ .Release.Name }}-account-service:9080/account
