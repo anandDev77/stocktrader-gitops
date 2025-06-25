@@ -224,8 +224,8 @@ spec:
     cpuThreshold: 75
     enabled: true
     image:
-      repository: kyncjot.azurecr.io/trader
-      tag: f5283c6c328edc22d598cb2a9c580a0966da41b1
+      repository: /broker
+      tag: 3b0eef29980cfaee0eec16d84b9f41d7b4da9d82
     maxReplicas: 10
     replicas: 1
   tradeHistory:
