@@ -303,7 +303,3 @@ spec:
     maxReplicas: 10
     replicas: 1
     url: http://{{ .Release.Name }}-stock-quote-service:9080/stock-quote
-  cash-account:
-    image:
-      repository: /cash-account
-      tag: 25cd911206f4f232e3c45a3455a8c38e42c3f7d4
