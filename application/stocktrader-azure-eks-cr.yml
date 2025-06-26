@@ -215,7 +215,7 @@ spec:
     exchangeRateUrl: https://api.frankfurter.app/latest
     image:
       repository: /cash-account
-      tag: 342e6fdf036d0bec7a9598335fac5daaca37d07f
+      tag: 8416771b57d819ff2c45c44dc7895c02db1c66f0
     maxReplicas: 10
     replicas: 1
     url: http://{{ .Release.Name }}-cash-account-service:8080/cash-account
