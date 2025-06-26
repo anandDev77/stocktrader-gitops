@@ -203,7 +203,7 @@ spec:
     cpuThreshold: 75
     enabled: false
     image:
-      repository: /account
+      repository: kyncjot.azurecr.io/account
       tag: 2eb9997d6b1e0f6c8a4c74bc235e76a770266345
     maxReplicas: 10
     replicas: 1
@@ -278,7 +278,7 @@ spec:
     autoscale: false
     cpuThreshold: 75
     image:
-      repository: /broker
+      repository: kyncjot.azurecr.io/broker
       tag: 5a70f5439834070707d2918eff633fafca495e00
     maxReplicas: 10
     replicas: 1
