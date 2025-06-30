@@ -279,7 +279,7 @@ spec:
     cpuThreshold: 75
     image:
       repository: kyncjot.azurecr.io/broker
-      tag: 61115f397f36efa617d3bd96e4cc278bd4720d72
+      tag: 959b689abc909e86141febd374e6bf4d5c865b8f
     maxReplicas: 10
     replicas: 1
     url: http://{{ .Release.Name }}-broker-service:9080/broker
