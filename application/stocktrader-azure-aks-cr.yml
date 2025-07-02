@@ -183,7 +183,7 @@ spec:
     cpuThreshold: 75
     image:
       repository: kyncjot.azurecr.io/portfolio
-      tag: c992c5c44ba04f2805cf0fd6c79b228641ac10c5
+      tag: 3c18ec5f5f5d4ea64dd11e06a02a36117dfe8e21
     maxReplicas: 10
     replicas: 1
     url: http://{{ .Release.Name }}-portfolio-service:9080/portfolio
