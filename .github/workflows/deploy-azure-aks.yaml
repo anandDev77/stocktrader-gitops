@@ -53,6 +53,6 @@ jobs:
         resource-group: ${{ secrets.AZURE_RESOURCE_GROUP }}
 
     # Deploy CR to namespace
-    - name: Deploy to AKS
-      run: |
-        kubectl apply -f application/stocktrader-azure-aks-cr.yml -n ${CLUSTER_NAMESPACE}
+    # - name: Deploy to AKS
+    #   run: |
+    #     kubectl apply -f application/stocktrader-azure-aks-cr.yml -n ${CLUSTER_NAMESPACE}
